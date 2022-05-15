@@ -1,9 +1,23 @@
-const { Client, Intents, MessageAttachment } = require('discord.js');
+const { Client, Intents, Collection, MessageAttachment } = require('discord.js');
 require('dotenv').config()
 const axios = require('axios')
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-const Canvas = require('canvas');
+
 const {Chess} = require("fix-esm").require("chess.js");
+
+const { request } = require('undici');
+const fs = require('node:fs');
+const path = require('node:path');
+
+client.commands = new Collection();
+const commandsPath = path.join(__dirname, 'commands');
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+	const filePath = path.join(commandsPath, file);
+	const command = require(filePath);
+	client.commands.set(command.data.name, command);
+}
 
 client.once('ready', () => {
 	console.log('Ready!');
@@ -11,44 +25,15 @@ client.once('ready', () => {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
+	const command = client.commands.get(interaction.commandName);
 
-	const { commandName } = interaction;
+	if (!command) return;
 
-	if (commandName === 'ping') {
-		await interaction.reply('Pong!');
-	} else if (commandName === 'daily') {
-		const axiosResponse = await axios.get('https://lichess.org/api/puzzle/daily')
-		const chess = Chess()
-		movesArray = axiosResponse.data.game.pgn.split(" ");
-		movesArray.forEach((item) => {
-			chess.move(item)
-		})
-		interaction.reply("```"+chess.ascii()+"```")
-	} else if (commandName === 'play') {
-		const chess = Chess()
-		console.log(chess.pgn())
-		while (!chess.game_over()) {
-			const moves = chess.moves()
-			const move = moves[Math.floor(Math.random() * moves.length)]
-			chess.move(move)
-		}
-		console.log(chess.pgn())
-		return
-		const canvas = Canvas.createCanvas(700, 700);
-		const context = canvas.getContext('2d');
-		const background = await Canvas.loadImage('./board.jpeg');
-
-		context.drawImage(background, 0, 0, canvas.width, canvas.height);
-	
-		const attachment = new MessageAttachment(canvas.toBuffer(), 'profile-image.png');
-	
-		interaction.reply({ files: [attachment] });
-	} else if (commandName === 'move') {
-		const playerMove = interaction.options.getString('move');
-		interaction.reply(playerMove)
-	} else if (commandName === 'say') {
-		const sayMessage = interaction.options.getString('input');
-		interaction.reply(sayMessage)
+	try {
+		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
 

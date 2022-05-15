@@ -1,17 +1,22 @@
+const fs = require('node:fs');
+const path = require('node:path');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { clientId, guildId} = require('./config.json');
-
 require('dotenv').config()
-const commands = [
-	new SlashCommandBuilder().setName('daily').setDescription('Gets the daily puzzle from lichess'),
-	new SlashCommandBuilder().setName('ping').setDescription('Replies with pong!'),
-	new SlashCommandBuilder().setName('play').setDescription('Starts the game'),
-	new SlashCommandBuilder().setName('move').setDescription('Receives your move').addStringOption(option => option.setName('move').setDescription('your move').setRequired(true)),
-	new SlashCommandBuilder().setName('say').setDescription('Says you told them to say').addStringOption(option => option.setName('input').setDescription('The input to echo back').setRequired(true)),
-]
-	.map(command => command.toJSON());
+
+const commands = [];
+const commandsPath = path.join(__dirname, 'commands');
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+	const filePath = path.join(commandsPath, file);
+	const command = require(filePath);
+	commands.push(command.data.toJSON());
+}
+
+
 
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
