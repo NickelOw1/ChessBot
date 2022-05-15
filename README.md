@@ -1,0 +1,1 @@
+ChessBot is a Discord bot project that gives you ability to play chess
