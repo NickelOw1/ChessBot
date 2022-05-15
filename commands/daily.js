@@ -1,8 +1,7 @@
 const {Chess} = require("fix-esm").require("chess.js");
 const axios = require('axios')
-
 const { SlashCommandBuilder } = require('@discordjs/builders');
-
+const convertFenToCanvas = require('../convertFenToCanvas')
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('daily')
@@ -14,6 +13,8 @@ module.exports = {
         movesArray.forEach((item) => {
             chess.move(item)
         })
-        interaction.reply("```"+chess.ascii()+"```")
+		const attachment = await convertFenToCanvas(chess.fen())
+		await interaction.reply({ files: [attachment] });
+        await interaction.followUp(chess.fen().split(" ")[1]);
 	},
 };
