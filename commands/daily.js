@@ -15,6 +15,14 @@ module.exports = {
         })
 		const attachment = await convertFenToCanvas(chess.fen())
 		await interaction.reply({ files: [attachment] });
-        await interaction.followUp(chess.fen().split(" ")[1]);
+        let nextMove = undefined
+        if (chess.fen().split(" ")[1]=="b") {
+            nextMove = "black"
+        }
+        if (chess.fen().split(" ")[1]=="w") {
+            nextMove = "white"
+        }
+        
+        await interaction.followUp(`${nextMove} next!`);
 	},
 };

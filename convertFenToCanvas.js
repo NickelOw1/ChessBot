@@ -5,7 +5,6 @@ const {drawFigures} = require('./drawFigures.js');
 module.exports = async function convertFenToCanvas(fenString) {
     const fenArray = fenString.split('')
     const figuresArray = fenString.split(' ')[0].split('')
-    console.log(figuresArray)
 
     
 		const canvas = createCanvas(640, 640);
