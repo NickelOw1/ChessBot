@@ -1,23 +1,9 @@
-const { Client, Intents, Collection, MessageAttachment } = require('discord.js');
+const { Client, Intents} = require('discord.js');
 require('dotenv').config()
-const axios = require('axios')
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const commandsHandler = require('./commandsHandler.js')
 
-const {Chess} = require("fix-esm").require("chess.js");
-
-const { request } = require('undici');
-const fs = require('node:fs');
-const path = require('node:path');
-
-client.commands = new Collection();
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-
-for (const file of commandFiles) {
-	const filePath = path.join(commandsPath, file);
-	const command = require(filePath);
-	client.commands.set(command.data.name, command);
-}
+commandsHandler.execute(client)
 
 client.once('ready', () => {
 	console.log('Ready!');

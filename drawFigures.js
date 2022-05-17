@@ -2,9 +2,9 @@ function drawFigures(figuresArray, context) {
     let figureWidth = -80
     let figureHeight = 70
         figuresArray.forEach((item) => {
-            if (!isNaN(item)&&item!=0) {
+            if (!isNaN(item)) {
 
-                if (figureWidth == 660) {
+                if (figureWidth === 660) {
                     figureHeight = figureHeight + 80
                     figureWidth = -80
                 }
@@ -19,7 +19,7 @@ function drawFigures(figuresArray, context) {
                     context.fillStyle = '#000000';
                     figureWidth = figureWidth + 80
                     context.fillText(`\u2656`, figureWidth, figureHeight);
-                    if (figureWidth == 660) {
+                    if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
@@ -28,7 +28,7 @@ function drawFigures(figuresArray, context) {
                     context.fillStyle = '#000000';
                     figureWidth = figureWidth + 80
                     context.fillText(`\u2658`, figureWidth, figureHeight);
-                    if (figureWidth == 660) {
+                    if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
@@ -37,7 +37,7 @@ function drawFigures(figuresArray, context) {
                     context.fillStyle = '#000000';
                     figureWidth = figureWidth + 80
                     context.fillText(`\u2657`, figureWidth, figureHeight);
-                    if (figureWidth == 660) {
+                    if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
@@ -46,7 +46,7 @@ function drawFigures(figuresArray, context) {
                     context.fillStyle = '#000000';
                     figureWidth = figureWidth + 80
                     context.fillText(`\u2655`, figureWidth, figureHeight);
-                    if (figureWidth == 660) {
+                    if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
@@ -55,7 +55,7 @@ function drawFigures(figuresArray, context) {
                     context.fillStyle = '#000000';
                     figureWidth = figureWidth + 80
                     context.fillText(`\u2654`, figureWidth, figureHeight);
-                    if (figureWidth == 660) {
+                    if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
@@ -64,7 +64,7 @@ function drawFigures(figuresArray, context) {
                     context.fillStyle = '#000000';
                     figureWidth = figureWidth + 80
                     context.fillText(`\u2659`, figureWidth, figureHeight);
-                    if (figureWidth == 660) {
+                    if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
@@ -73,7 +73,7 @@ function drawFigures(figuresArray, context) {
                     context.fillStyle = '#ffffff';
                     figureWidth = figureWidth + 80
                     context.fillText(`\u2656`, figureWidth, figureHeight);
-                    if (figureWidth == 660) {
+                    if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
@@ -82,7 +82,7 @@ function drawFigures(figuresArray, context) {
                     context.fillStyle = '#ffffff';
                     figureWidth = figureWidth + 80
                     context.fillText(`\u2658`, figureWidth, figureHeight);
-                    if (figureWidth == 660) {
+                    if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
@@ -91,7 +91,7 @@ function drawFigures(figuresArray, context) {
                     context.fillStyle = '#ffffff';
                     figureWidth = figureWidth + 80
                     context.fillText(`\u2657`, figureWidth, figureHeight);
-                    if (figureWidth == 660) {
+                    if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
@@ -100,7 +100,7 @@ function drawFigures(figuresArray, context) {
                     context.fillStyle = '#ffffff';
                     figureWidth = figureWidth + 80
                     context.fillText(`\u2655`, figureWidth, figureHeight);
-                    if (figureWidth == 660) {
+                    if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
@@ -109,7 +109,7 @@ function drawFigures(figuresArray, context) {
                     context.fillStyle = '#ffffff';
                     figureWidth = figureWidth + 80
                     context.fillText(`\u2654`, figureWidth, figureHeight);
-                    if (figureWidth == 660) {
+                    if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
@@ -118,7 +118,7 @@ function drawFigures(figuresArray, context) {
                     context.fillStyle = '#ffffff';
                     figureWidth = figureWidth + 80
                     context.fillText(`\u2659`, figureWidth, figureHeight);
-                    if (figureWidth == 660) {
+                    if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }

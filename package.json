@@ -19,8 +19,10 @@
     "discord-api-types": "^0.32.1",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.1",
+    "easy-yandex-s3": "^1.1.6",
     "fix-esm": "^1.0.1",
     "nodemon": "^2.0.16",
-    "undici": "^5.2.0"
+    "undici": "^5.2.0",
+    "uuid": "^8.3.2"
   }
 }
