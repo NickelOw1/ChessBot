@@ -8,13 +8,20 @@ module.exports = async function convertFenToCanvas(fenString) {
 
 	const canvas = createCanvas(640, 640);
 	const context = canvas.getContext('2d');
-	const background = await readFile('./board.jpeg');
+	const background = await readFile('./board.png');
 	const backgroundImage = new Image();
 	backgroundImage.src = background;
 	context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 	context.font = '80px Arial';
+	const fullCanvas = createCanvas(684, 684)
+	const fullContext = fullCanvas.getContext('2d')
+	const fullBackground = await readFile('./boardwithnumbers.jpg')
+	const fullBackgroundImage = new Image()
+	fullBackgroundImage.src = fullBackground
+	fullContext.drawImage(fullBackgroundImage, 0, 0, fullCanvas.width, fullCanvas.height)
 
     drawFigures(figuresArray, context)
-
-	return new MessageAttachment(canvas.toBuffer('image/jpeg'), 'board.png');
+	fullContext.drawImage(canvas, -22, -22, 662, 662)
+	let attachment = new MessageAttachment(fullCanvas.toBuffer('image/jpeg'), 'board.png');
+	return attachment
 }

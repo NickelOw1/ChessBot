@@ -1,6 +1,8 @@
 function drawFigures(figuresArray, context) {
     let figureWidth = -80
     let figureHeight = 70
+    let whiteColor = "#FFFFFF"
+    let blackColor = "#000000"
         figuresArray.forEach((item) => {
             if (!isNaN(item)) {
 
@@ -16,52 +18,52 @@ function drawFigures(figuresArray, context) {
                     figureWidth = -80
                     break
                 case 'r':
-                    context.fillStyle = '#000000';
+                    context.fillStyle = blackColor;
                     figureWidth = figureWidth + 80
-                    context.fillText(`\u2656`, figureWidth, figureHeight);
+                    context.fillText(`\u265C`, figureWidth, figureHeight);
                     if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
                     break
                 case 'n':
-                    context.fillStyle = '#000000';
+                    context.fillStyle = blackColor;
                     figureWidth = figureWidth + 80
-                    context.fillText(`\u2658`, figureWidth, figureHeight);
+                    context.fillText(`\u265E`, figureWidth, figureHeight);
                     if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
                     break
                 case 'b':
-                    context.fillStyle = '#000000';
+                    context.fillStyle = blackColor;
                     figureWidth = figureWidth + 80
-                    context.fillText(`\u2657`, figureWidth, figureHeight);
+                    context.fillText(`\u265D`, figureWidth, figureHeight);
                     if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
                     break
                 case 'q':
-                    context.fillStyle = '#000000';
+                    context.fillStyle = blackColor;
                     figureWidth = figureWidth + 80
-                    context.fillText(`\u2655`, figureWidth, figureHeight);
+                    context.fillText(`\u265B`, figureWidth, figureHeight);
                     if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
                     break
                 case 'k':
-                    context.fillStyle = '#000000';
+                    context.fillStyle = blackColor;
                     figureWidth = figureWidth + 80
-                    context.fillText(`\u2654`, figureWidth, figureHeight);
+                    context.fillText(`\u265A`, figureWidth, figureHeight);
                     if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
                     break
                 case 'p':
-                    context.fillStyle = '#000000';
+                    context.fillStyle = blackColor;
                     figureWidth = figureWidth + 80
                     context.fillText(`\u2659`, figureWidth, figureHeight);
                     if (figureWidth === 660) {
@@ -70,52 +72,52 @@ function drawFigures(figuresArray, context) {
                     }
                     break
                 case 'R':
-                    context.fillStyle = '#ffffff';
+                    context.fillStyle = whiteColor;
                     figureWidth = figureWidth + 80
-                    context.fillText(`\u2656`, figureWidth, figureHeight);
+                    context.fillText(`\u265C`, figureWidth, figureHeight);
                     if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
                     break
                 case 'N':
-                    context.fillStyle = '#ffffff';
+                    context.fillStyle = whiteColor;
                     figureWidth = figureWidth + 80
-                    context.fillText(`\u2658`, figureWidth, figureHeight);
+                    context.fillText(`\u265E`, figureWidth, figureHeight);
                     if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
                     break
                 case 'B':
-                    context.fillStyle = '#ffffff';
+                    context.fillStyle = whiteColor;
                     figureWidth = figureWidth + 80
-                    context.fillText(`\u2657`, figureWidth, figureHeight);
+                    context.fillText(`\u265D`, figureWidth, figureHeight);
                     if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
                     break
                 case 'Q':
-                    context.fillStyle = '#ffffff';
+                    context.fillStyle = whiteColor;
                     figureWidth = figureWidth + 80
-                    context.fillText(`\u2655`, figureWidth, figureHeight);
+                    context.fillText(`\u265B`, figureWidth, figureHeight);
                     if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
                     break
                 case 'K':
-                    context.fillStyle = '#ffffff';
+                    context.fillStyle = whiteColor;
                     figureWidth = figureWidth + 80
-                    context.fillText(`\u2654`, figureWidth, figureHeight);
+                    context.fillText(`\u265A`, figureWidth, figureHeight);
                     if (figureWidth === 660) {
                         figureHeight = figureHeight + 80
                         figureWidth = -80
                     }
                     break
                 case 'P':
-                    context.fillStyle = '#ffffff';
+                    context.fillStyle = whiteColor;
                     figureWidth = figureWidth + 80
                     context.fillText(`\u2659`, figureWidth, figureHeight);
                     if (figureWidth === 660) {
