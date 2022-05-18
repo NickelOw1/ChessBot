@@ -7,11 +7,14 @@ module.exports = {
 		.setDescription('So you have chosen death'),
 		
 	async execute(interaction) {
-		await interaction.reply('gave up');
 
-        const selectedGame = await db.query(`SELECT whiteId, blackId from games WHERE channelId = $1 AND (whiteId = $2 OR blackId = $2)`, [interaction.channelId, interaction.member.user.id ])
-        console.log(selectedGame)
+        const selectedGame = await db.query(`SELECT whiteId, blackId from games WHERE channelId = $1 AND victory = $2 AND (whiteId = $3 OR blackId = $3)`, [interaction.channelId, "none", interaction.member.user.id ])
         let winner = ""
+        if (!selectedGame.rows[0]) {
+			interaction.reply("There is no such game")
+			return
+		}
+        await interaction.reply('gave up');
         if (selectedGame.rows[0].whiteid == interaction.member.user.id) {
             winner = "black"
         }

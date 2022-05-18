@@ -11,22 +11,31 @@ module.exports = {
 
 	async execute(interaction) {
 		const playerMove = interaction.options.getString('move');
-		//const newTest = await db.query(`INSERT INTO testtable (pname, surname) values ($1, $2)`, ["n4", "su4"])
-		//const selectedTest = await db.query(`SELECT * from testtable WHERE pname = $1`, ["n4"])
-		const selectedGame = await db.query(`SELECT fen from games WHERE channelId = $1 AND (whiteId = $2 OR blackId = $3)`, [interaction.channelId, interaction.member.user.id, interaction.member.user.id ])
+		const selectedGame = await db.query(`SELECT fen, messageId, blackId, whiteId, nextmove from games WHERE channelId = $1 AND victory = $2 AND (whiteId = $3 OR blackId = $4)`, [interaction.channelId, "none", interaction.member.user.id, interaction.member.user.id ])
 		console.log(selectedGame.rows)
+		if (!selectedGame.rows[0]) {
+			interaction.reply("There is no such game")
+			return
+		}
+		if ((interaction.member.user.id != selectedGame.rows[0].whiteid && selectedGame.rows[0].nextmove == 1) || (interaction.member.user.id != selectedGame.rows[0].blackid && selectedGame.rows[0].nextmove == -1)) {
+			interaction.reply("Thats not your turn")
+			return
+		}
 		chess = Chess(selectedGame.rows[0].fen)
 		chess.move(playerMove, {sloppy: true})
-		console.log(chess.fen())
-		console.log(interaction.member.user.id)
-		await db.query(`UPDATE games set fen = $1 where (whiteId = $2 OR blackId = $3) AND channelId = $4`, [chess.fen(), interaction.member.user.id, interaction.member.user.id , interaction.channelId])
+		const nextMove = selectedGame.rows[0].nextmove * (-1)
+		console.log(nextMove)
+		await db.query(`UPDATE games set fen = $1, nextmove = $2
+		 where (whiteId = $3 OR blackId = $3) AND channelId = $4`, 
+		  [chess.fen(), nextMove, interaction.member.user.id , interaction.channelId])
 		const attachment = await convertFenToCanvas(chess.fen())
+		const channel = interaction.channel
 		interaction.reply(playerMove)
 		setTimeout(() => {
 			interaction.deleteReply()
 		}, 3000);
-		const channel = interaction.channel
-		await (await channel.messages.fetch('976177789302620201')).edit({files: [attachment]})
+
+		await (await channel.messages.fetch(selectedGame.rows[0].messageid)).edit({files: [attachment]})
 	},
 };
 

@@ -19,8 +19,10 @@ module.exports = {
 		if (fenOption) {
 			chess = Chess(fenOption)
 		}
-		await db.query(`INSERT INTO games (whiteId, blackId, fen, channelId, victory) values ($1, $2, $3, $4, $5)`, [interaction.member.user.id, secondPlayerId, chess.fen(), interaction.channelId, "none"])
 		const attachment = await convertFenToCanvas(chess.fen())
-		await interaction.reply({ files: [attachment] });
+		const interactionMessage = await interaction.reply({ files: [attachment], fetchReply: true });
+		await db.query(`INSERT INTO games (whiteId, blackId, fen, channelId, victory, messageId, nextmove)
+		 values ($1, $2, $3, $4, $5, $6, $7)`, 
+		 [interaction.member.user.id, secondPlayerId, chess.fen(), interaction.channelId, "none", interactionMessage.id, 1])
 	},
 };
