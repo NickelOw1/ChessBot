@@ -11,8 +11,9 @@ module.exports = {
 
 	async execute(interaction) {
 		const playerMove = interaction.options.getString('move');
-		const selectedGame = await db.query(`SELECT fen, messageId, blackId, whiteId, nextmove from games WHERE channelId = $1 AND victory = $2 AND (whiteId = $3 OR blackId = $4)`, [interaction.channelId, "none", interaction.member.user.id, interaction.member.user.id ])
-		console.log(selectedGame.rows)
+		const selectedGame = await db.query(`SELECT id, fen, messageId, blackId, whiteId, nextmove 
+		FROM games WHERE channelId = $1 AND victory = $2 AND (whiteId = $3 OR blackId = $4)`, 
+		[interaction.channelId, "none", interaction.member.user.id, interaction.member.user.id ])
 		if (!selectedGame.rows[0]) {
 			interaction.reply("There is no such game")
 			return
@@ -23,17 +24,20 @@ module.exports = {
 		}
 		chess = Chess(selectedGame.rows[0].fen)
 		chess.move(playerMove, {sloppy: true})
+		if (chess.fen()==selectedGame.rows[0].fen) {
+			interaction.reply("Wrong notation")
+			return
+		}
 		const nextMove = selectedGame.rows[0].nextmove * (-1)
-		console.log(nextMove)
 		await db.query(`UPDATE games set fen = $1, nextmove = $2
-		 where (whiteId = $3 OR blackId = $3) AND channelId = $4`, 
-		  [chess.fen(), nextMove, interaction.member.user.id , interaction.channelId])
+		 where id=$3`, 
+		  [chess.fen(), nextMove, selectedGame.rows[0].id])
 		const attachment = await convertFenToCanvas(chess.fen())
 		const channel = interaction.channel
 		interaction.reply(playerMove)
 		setTimeout(() => {
 			interaction.deleteReply()
-		}, 3000);
+		}, 1500);
 
 		await (await channel.messages.fetch(selectedGame.rows[0].messageid)).edit({files: [attachment]})
 	},

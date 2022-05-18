@@ -8,7 +8,9 @@ module.exports = {
 		
 	async execute(interaction) {
 
-        const selectedGame = await db.query(`SELECT whiteId, blackId from games WHERE channelId = $1 AND victory = $2 AND (whiteId = $3 OR blackId = $3)`, [interaction.channelId, "none", interaction.member.user.id ])
+        const selectedGame = await db.query(`SELECT id, whiteId, blackId 
+        FROM games WHERE channelId = $1 AND victory = $2 AND (whiteId = $3 OR blackId = $3)`, 
+        [interaction.channelId, "none", interaction.member.user.id ])
         let winner = ""
         if (!selectedGame.rows[0]) {
 			interaction.reply("There is no such game")
@@ -21,6 +23,8 @@ module.exports = {
         if (selectedGame.rows[0].blackid == interaction.member.user.id) {
             winner = "white"
         }
-        await db.query(`UPDATE games set victory = $1 where (whiteId = $2 OR blackId = $2) AND channelId = $3`, [winner, interaction.member.user.id, interaction.channelId])
+        await db.query(`UPDATE games SET victory = $1 
+        WHERE id = $2`, 
+        [winner, selectedGame.rows[0].id])
 	},
 };

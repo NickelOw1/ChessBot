@@ -7,6 +7,7 @@ commandsHandler.execute(client)
 
 client.once('ready', () => {
 	console.log('Ready!');
+	client.user.setActivity("Chess", { type: "PLAYING"})
 });
 
 client.on('interactionCreate', async interaction => {
