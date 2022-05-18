@@ -22,3 +22,6 @@ your_move is required option you should use to make a move
 /daily command sends request to lichess.org/api and renders a daily puzzle  
 /puzzle command uses an [Api](https://rapidapi.com/KeeghanM/api/chess-puzzles/details) to get a random puzzle from lichess.org database
 
+## /continue
+/continue command just resends message with your last game so you can continue it
+
